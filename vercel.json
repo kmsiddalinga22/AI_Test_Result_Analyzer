@@ -1,0 +1,8 @@
+{
+  "name": "testresutlanalyzer",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

@@ -1,0 +1,235 @@
+﻿/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f0f4f8;
+  color: #1e293b;
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── App shell ───────────────────────────────────────────────────────────── */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.app-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 18px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.header-inner { display: flex; align-items: center; gap: 16px; max-width: 860px; margin: 0 auto; }
+.header-logo  { font-size: 38px; line-height: 1; }
+.app-header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; }
+.app-header p  { font-size: 0.82rem; color: #94a3b8; margin-top: 2px; }
+
+/* ── Main container ──────────────────────────────────────────────────────── */
+.app-main { max-width: 860px; margin: 0 auto; padding: 32px 16px; width: 100%; }
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.04);
+}
+.card-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: #64748b;
+  margin-bottom: 18px;
+}
+
+/* ── Drop zone ───────────────────────────────────────────────────────────── */
+.drop-zone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 36px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  background: #f8fafc;
+  margin-bottom: 16px;
+}
+.drop-zone:hover        { border-color: #6366f1; background: #eef2ff; }
+.drop-zone.has-file     { border-color: #22c55e; background: #f0fdf4; cursor: default; }
+.dz-placeholder { pointer-events: none; }
+.dz-big-icon    { font-size: 44px; margin-bottom: 10px; }
+.dz-text  { font-size: 0.95rem; font-weight: 500; color: #374151; }
+.dz-hint  { font-size: 0.78rem; color: #94a3b8; margin-top: 4px; }
+
+/* File row inside drop zone */
+.file-row  { display: flex; align-items: center; gap: 14px; text-align: left; }
+.file-icon { font-size: 30px; flex-shrink: 0; }
+.file-meta { display: flex; flex-direction: column; flex: 1; }
+.file-name { font-weight: 600; color: #1e293b; font-size: 0.9rem; word-break: break-all; }
+.file-size { font-size: 0.75rem; color: #64748b; margin-top: 2px; }
+.btn-remove {
+  background: none; border: 1px solid #e2e8f0; border-radius: 6px;
+  padding: 4px 9px; cursor: pointer; color: #64748b; font-size: 0.8rem;
+  flex-shrink: 0; transition: all .15s;
+}
+.btn-remove:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+
+/* ── Analyze button ──────────────────────────────────────────────────────── */
+.btn-analyze {
+  width: 100%;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .2s, transform .15s, opacity .2s;
+}
+.btn-analyze:hover:not(:disabled) { background: linear-gradient(135deg, #4f46e5, #3730a3); transform: translateY(-1px); }
+.btn-analyze:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+.btn-analyze.loading { opacity: .9; }
+
+/* spinner */
+.spinner {
+  width: 15px; height: 15px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Alert ───────────────────────────────────────────────────────────────── */
+.alert-error {
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.88rem;
+}
+
+/* ── Stats grid ──────────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-box { text-align: center; padding: 18px 12px; border-radius: 12px; }
+.stat-num  { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+.stat-lbl  { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-top: 4px; }
+.stat-total   { background: #e0e7ff; color: #3730a3; }
+.stat-passed  { background: #dcfce7; color: #15803d; }
+.stat-failed  { background: #fee2e2; color: #b91c1c; }
+.stat-skipped { background: #fef9c3; color: #854d0e; }
+
+/* ── Progress bar ────────────────────────────────────────────────────────── */
+.progress-wrap  { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.progress-track { flex: 1; background: #e2e8f0; border-radius: 99px; height: 10px; overflow: hidden; }
+.progress-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width .6s ease; }
+.progress-label { font-size: 0.82rem; font-weight: 700; color: #16a34a; white-space: nowrap; }
+.failure-note   { font-size: 0.83rem; color: #64748b; }
+.failure-note strong { color: #dc2626; }
+
+/* ── Error buckets ───────────────────────────────────────────────────────── */
+.buckets-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.bucket-card {
+  flex: 1 1 120px;
+  min-width: 110px;
+  text-align: center;
+  padding: 20px 14px;
+  border-radius: 12px;
+  border: 2px solid;
+}
+.bucket-icon  { font-size: 24px; margin-bottom: 6px; }
+.bucket-count { font-size: 2rem; font-weight: 800; line-height: 1; }
+.bucket-name  { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+.bucket-sub   { font-size: 0.72rem; opacity: .65; }
+
+/* ── Raw output ──────────────────────────────────────────────────────────── */
+.raw-card   { cursor: default; }
+.raw-toggle {
+  cursor: pointer; font-size: 0.83rem; font-weight: 600;
+  color: #64748b; list-style: none; user-select: none;
+}
+.raw-toggle::marker, .raw-toggle::-webkit-details-marker { display: none; }
+.raw-toggle::before { content: '▶  '; font-size: .65em; }
+details[open] .raw-toggle::before { content: '▼  '; }
+.raw-text {
+  margin-top: 16px;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 18px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+/* ── Failed tests table ──────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; }
+
+.failed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+.failed-table thead tr {
+  background: #f1f5f9;
+  border-bottom: 2px solid #e2e8f0;
+}
+.failed-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #64748b;
+  white-space: nowrap;
+}
+.failed-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background .12s;
+}
+.failed-table tbody tr:hover { background: #f8fafc; }
+.failed-table td { padding: 12px 14px; vertical-align: top; }
+
+.td-num   { font-weight: 700; color: #94a3b8; width: 36px; text-align: center; }
+.td-name  { font-weight: 600; color: #1e293b; min-width: 200px; }
+.td-error { color: #475569; min-width: 260px; word-break: break-word; }
+.td-bucket { white-space: nowrap; }
+
+.bucket-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.no-detail { font-style: italic; color: #94a3b8; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .app-header { padding: 14px 16px; }
+  .app-main   { padding: 20px 12px; }
+  .failed-table th, .failed-table td { padding: 8px 10px; }
+}
