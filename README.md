@@ -101,11 +101,11 @@ This README documents the expected output layout and how to run the app to repro
 
 ## Screenshots
 
-Add the exported screenshot files to `screenshots/`, then they will be embedded here.
+The project includes local documentation screenshots in `screenshots/`.
 
-![Langflow flow screenshot](screenshots/langflow-flow.png)
+![Langflow flow screenshot](screenshots/LangFlow_Diagram.png)
 
-![Analyzer UI output screenshot](screenshots/analyzer-output.png)
+![Analyzer UI output screenshot](screenshots/Test_Result_Analysis.png)
 
 ## Git check-in guidance
 
